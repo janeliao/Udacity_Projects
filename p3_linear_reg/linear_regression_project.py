@@ -5,7 +5,7 @@
 # 
 # ## 1.1 创建一个 4*4 的单位矩阵
 
-# In[97]:
+# In[46]:
 
 # 这个项目设计来帮你熟悉 python list 和线性代数
 # 你不能调用任何python库，包括NumPy，来完成作业
@@ -29,7 +29,7 @@ I = [[1,0,0,0],
 
 # ## 1.2 返回矩阵的行数和列数
 
-# In[98]:
+# In[47]:
 
 # TODO 返回矩阵的行数和列数
 def shape(M):
@@ -40,7 +40,7 @@ def shape(M):
 
 # ## 1.3 每个元素四舍五入到特定小数数位
 
-# In[99]:
+# In[48]:
 
 # TODO 每个元素四舍五入到特定小数数位
 # 直接修改参数矩阵，无返回值
@@ -53,24 +53,21 @@ def matxRound(M, decPts=4):
 
 # ## 1.4 计算矩阵的转置
 
-# In[100]:
+# In[49]:
 
 # TODO 计算矩阵的转置
 def transpose(M):
     row_num,col_num = shape(M)
-    MT = []
-    
+    MT = []    
     for c in range(0,col_num):
-        MTi = []
-        for r in range(0,row_num):
-            MTi.append(M[r][c])
+        MTi = [M[i][c] for i in range(0,row_num)]
         MT.append(MTi)
     return MT
 
 
 # ## 1.5 计算矩阵乘法 AB
 
-# In[101]:
+# In[50]:
 
 # TODO 计算矩阵乘法 AB，如果无法相乘则返回None
 def matxMultiply(A, B):
@@ -80,8 +77,7 @@ def matxMultiply(A, B):
         for i in range(0,n):
             a = C[i]*D[i]
             sum += a
-        return sum
-    
+        return sum   
     # 判断是否可以相乘
     row_num_A, col_num_A = shape(A)
     row_num_B, col_num_B = shape(B)
@@ -91,10 +87,7 @@ def matxMultiply(A, B):
     else:
         C = []
         for i in range(0,row_num_A):
-            Ci = []
-            for j in range(0,col_num_B):
-                a = dot_product(A[i],E[j])
-                Ci.append(a)
+            Ci = [dot_product(A[i],E[j]) for j in range(col_num_B) ]
             C.append(Ci)
     return C
 
@@ -105,7 +98,7 @@ def matxMultiply(A, B):
 
 # **提示：** 你可以用`from pprint import pprint`来更漂亮的打印数据，详见[用法示例](http://cn-static.udacity.com/mlnd/images/pprint.png)和[文档说明](https://docs.python.org/2/library/pprint.html#pprint.pprint)。
 
-# In[102]:
+# In[51]:
 
 import pprint
 pp = pprint.PrettyPrinter(indent=1,width=40)
@@ -162,7 +155,7 @@ print ''
 #     ...    & ... & ... & ...& ...\\
 #     a_{n1}    & a_{n2} & ... & a_{nn} & b_{n} \end{bmatrix}$
 
-# In[103]:
+# In[52]:
 
 # TODO 构造增广矩阵，假设A，b行数相同
 
@@ -177,24 +170,6 @@ def augmentMatrix(A, b):
             Ab[i][j] = A[i][j]
         Ab[i][len(A[0])] = b[i][0]
     return Ab 
-
-'''                      
-    num_row_A = len(A)
-    num_row_b = len(b) 
-    num_col_A = len(A[0])
-    if  not num_row_A == num_row_b:
-        return None
-    else:
-        C = []
-        for i in range(0,num_row_A):
-            Ci = [] 
-            
-            for j in range(0,num_col_A):
-                
-                Ci.append(A[i][j])
-            Ci.append(b[i])
-            C.append(Ci)
-    return C '''
     
 c = [[1],[2],[3]]
 
@@ -209,7 +184,7 @@ print augmentMatrix(A,c)
 # - 把某行乘以一个非零常数
 # - 把某行加上另一行的若干倍：
 
-# In[104]:
+# In[53]:
 
 # TODO r1 <---> r2 
 # 直接修改参数矩阵，无返回值
@@ -285,7 +260,7 @@ print A
 # ### 注：
 # 我们并没有按照常规方法先把矩阵转化为行阶梯形矩阵，再转换为化简行阶梯形矩阵，而是一步到位。如果你熟悉常规方法的话，可以思考一下两者的等价性。
 
-# In[105]:
+# In[54]:
 
 # TODO 实现 Gaussain Jordan 方法求解 Ax = b
 
@@ -373,7 +348,7 @@ def gj_Solve(A, b, decPts=4, epsilon = 1.0e-16):
 
 # ## 2.5 测试 gj_Solve() 实现是否正确
 
-# In[106]:
+# In[55]:
 
 # TODO 构造 矩阵A，列向量b，其中 A 为奇异矩阵
 A = [[0,1,2],[0,2,3],[0,0,1]]
@@ -514,11 +489,22 @@ print Ax == b
 # \end{bmatrix} = \begin{bmatrix}
 #      \sum_{i=1}^{n}\limits{-2x_i(y_i-mx_i-b)} \\
 #      \sum_{i=1}^{n}\limits{-2(y_i-mx_i-b}\\
-# \end{bmatrix} = \begin{bmatrix}
-#     \frac{\partial E}{\partial m} \\
-#     \frac{\partial E}{\partial b} 
 # \end{bmatrix} 
 # $$
+# 
+# $$
+# 由于损失函数为
+# E = \sum_{i=1}^{n}{(y_i - mx_i - b)^2}
+# $$
+# 
+# $$
+# 则有：\frac{\partial E}{\partial m} = {-2x_1(y_1 - mx_1 - b)+(-2x_2(y_2 - mx_2 - b)) + ... + (-2x_n(y_n - mx_n - b))} = \sum_{i=1}^{n}{-2x_i(y_i - mx_i - b)}
+# $$
+# 
+# $$
+# 同理：\frac{\partial E}{\partial b} = {-2(y_1 - mx_1 - b) + (-2(y_2 - mx_2 - b)) + ... + (-2(y_n - mx_n - b)) } = \sum_{i=1}^{n}{-2(y_i - mx_i - b)}
+# $$
+# 
 # 
 # $$
 # 所以\begin{bmatrix}
@@ -572,7 +558,7 @@ print Ax == b
 # 
 # ### 求解方程 $X^TXh = X^TY $, 计算线性回归的最佳参数 h
 
-# In[107]:
+# In[56]:
 
 # TODO 实现线性回归
 '''
@@ -600,7 +586,7 @@ def linearRegression(points):
 
 # ## 3.3 测试你的线性回归实现
 
-# In[132]:
+# In[118]:
 
 # TODO 构造线性函数
 #y = 1 * x + 1 + delta
@@ -608,7 +594,8 @@ def linearRegression(points):
 import random
 import numpy as np
 x = np.arange(100)
-delta = np.random.uniform(-1,1, size=(100,))
+delta = random.gauss(0,0.1)
+#print delta
 y = 1 * x + 1 + delta
 x = x.tolist()
 y = y.tolist()
@@ -628,7 +615,7 @@ print loss < 1e-2
 # 
 # 请确保你的实现通过了以下所有单元测试。
 
-# In[134]:
+# In[58]:
 
 import unittest
 import numpy as np

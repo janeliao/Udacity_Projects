@@ -1,0 +1,39 @@
+python learning notes
+
+
+.np.random.*非常强大。可以产生随机数（包括随机整数，实数；一维的，二维的等等），还可以产生正态分布的数（既可以用它来产生扰动或者是高斯噪声）。
+（1）numpy.random.rand(d0, d1, ..., dn) shape为：(d0, d1, ..., dn)
+（2）numpy.random.normal(loc=0.0, scale=1.0, size=None)loc 均值，scale 标准差，size大小。
+>>> mu, sigma = 0, 0.1
+>>> s = np.random.normal(mu, sigma, 1000)
+>>> abs(mu - np.mean(s)) < 0.01
+True
+>>> abs(sigma - np.std(s, ddof=1)) < 0.01
+True
+Display the histogram of the samples, along with the probability density function:
+
+>>> import matplotlib.pyplot as plt
+>>> count, bins, ignored = plt.hist(s, 30, normed=True)
+>>> plt.plot(bins, 1/(sigma * np.sqrt(2 * np.pi)) *
+...                np.exp( - (bins - mu)**2 / (2 * sigma**2) ),
+...          linewidth=2, color='r')
+>>> plt.show()
+../../_images/numpy-random-normal-1.png
+（3）numpy.random.uniform(low=0.0, high=1.0, size=1) 均匀分布一样的。
+（4）多项式函数
+p=np.poly1d(a),其中，a是多项式由高次到0次方的系数。
+>>> a
+array([ 0.97712037, -1.39644265, -0.96801519,  0.97348607,  0.4140714 ])
+>>> p=np.poly1d(a)
+>>> type(p)
+<class 'numpy.lib.polynomial.poly1d'>
+还有一个可以用来做多项式拟合的函数：np.polyfit（）
+
+The probability density for the Gaussian distribution is
+
+p(x) = \frac{1}{\sqrt{ 2 \pi \sigma^2 }}
+e^{ - \frac{ (x - \mu)^2 } {2 \sigma^2} },
+
+where \mu is the mean and \sigma the standard deviation. The square of the standard deviation, \sigma^2, is called the variance.
+
+The function has its peak at the mean, and its “spread” increases with the standard deviation (the function reaches 0.607 times its maximum at x + \sigma and x - \sigma [R250]). This implies that numpy.random.normal is more likely to return samples lying close to the mean, rather than those far away.
