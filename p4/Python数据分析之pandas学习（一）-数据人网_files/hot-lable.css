@@ -1,0 +1,26 @@
+/*热门标签*/
+.hot-lable .lable-box{
+	border-top: 0.1rem solid #eeeeee;
+	padding:2rem;
+}
+
+.hot-lable .lable-box a{
+	font-size: 1.6rem;
+	display: inline-block;
+	margin-bottom: 0.8rem;
+	margin-right: 0.4rem;
+	color:#64a7e7;
+	text-decoration: none;;
+	padding:0.5rem 1rem;
+	background-color: #e6f1f8
+}
+
+.hot-lable .lable-box a:hover{
+	background-color: #ddd;
+}
+
+@media (min-width: 768px) {
+	.hot-lable .lable-box a{;
+		padding:0.5rem 2rem;
+	}
+}

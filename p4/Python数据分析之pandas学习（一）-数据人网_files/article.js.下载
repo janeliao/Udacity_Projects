@@ -1,0 +1,12 @@
+	// var txt=$(this).parents(".media-body").children("a h4.media-heading").text();
+	// alert(txt);
+window.onload=function(){
+	var reply=document.getElementsByClassName("reply");
+	var commentBox=document.getElementById("comment-box");
+	for(var i=0;i<reply.length;i++){
+		reply[i].onclick=function(){
+			var txt=this.parentNode.parentNode.children[0].children[0].innerText;
+			commentBox.value="回复 @" + txt + " 说：";
+		}
+	}
+}

@@ -1,0 +1,129 @@
+
+  //文章收藏按钮
+    $('#btn-favorite').click(function(){
+      var id = $('input[name="id"]').attr('value');
+      var num=parseInt($('#btn-favorite span.num').html());
+      if($('#btn-favorite span.glyphicon').hasClass('glyphicon-star-empty')){
+        // 收藏
+        $.post(favoriteArticleUrl,
+        {
+          id:id
+        },
+        function(data,status){
+          if(data.status===1){
+            $('#btn-favorite span.glyphicon').removeClass('glyphicon-star-empty');
+            $('#btn-favorite span.glyphicon').addClass('glyphicon glyphicon-star');
+            $('#btn-favorite span.num').html(++num);
+          }else{
+            alert(data.info);
+            $('#btn-favorite span.glyphicon').removeClass('glyphicon-star');
+            $('#btn-favorite span.glyphicon').addClass('glyphicon glyphicon-star-empty');
+          }
+        });
+      }else if($('#btn-favorite span.glyphicon').hasClass('glyphicon glyphicon-star')){
+        // 取消收藏
+        $.post(cancelFavoriteUrl,
+        {
+          id:id
+        },
+        function(data,status){
+          if(data.status===1){
+            $('#btn-favorite span.glyphicon').removeClass('glyphicon-star');
+            $('#btn-favorite span.glyphicon').addClass('glyphicon glyphicon-star-empty');
+            $('#btn-favorite span.num').html(--num);
+          }else{
+            alert(data.info);
+            $('#btn-favorite span.glyphicon').removeClass('glyphicon-star');
+            $('#btn-favorite span.glyphicon').addClass('glyphicon glyphicon-star-empty');
+          }
+        });
+      }
+    });
+
+
+//文章点赞按钮
+    $('#btn-atriclepraise').click(function(){
+      var id = $('input[name="id"]').attr('value');
+      var num=parseInt($('#btn-atriclepraise span.num').html());
+      if($('#btn-atriclepraise span.glyphicon').hasClass('active')){
+        // 点赞
+        $.post(cancelArticlePraiseUrl,
+        {
+          id:id
+        },
+        function(data,status){
+          if(data.status===1){
+            $('#btn-atriclepraise span.glyphicon').removeClass('active');
+            $('#btn-atriclepraise span.num').html(--num);
+          }else{
+            alert(data.info);
+            $('#btn-atriclepraise span.glyphicon').removeClass('active');
+          }
+        });
+      }else{
+        // 取消点赞
+        $.post(praiseArticleUrl,
+        {
+          id:id
+        },
+        function(data,status){
+          if(data.status===1){
+            $('#btn-atriclepraise span.glyphicon').addClass('active');
+            $('#btn-atriclepraise span.num').html(++num);
+          }else{
+            alert(data.info);
+            $('#btn-atriclepraise span.glyphicon').removeClass('active');
+          }
+        });
+      }
+    });
+
+
+  //评论点赞按钮
+  $('.comment-praise').each(function(){
+    $(this).click(function(){
+      var id = $(this).children('input[name="commentid"]').attr('value');
+      var num=parseInt($(this).children('span.num').html());
+      praiseAjax($(this));
+      function praiseAjax(ele){
+        if(ele.children('span.glyphicon').hasClass('active')){
+          // 取消点赞
+          $.post(cancelCommentPraiseUrl,
+          {
+            id:id
+          },
+          function(data,status){
+            if(data.status===1){
+              ele.children('span.glyphicon').removeClass('active');
+              ele.children('span.num').html(--num);
+            }else{
+              alert(data.info);
+              ele.children('span.glyphicon').removeClass('active');
+            }
+          });
+        }else{
+          // 点赞
+          $.post(praiseCommentUrl,
+          {
+            id:id
+          },
+          function(data,status){
+            if(data.status===1){
+              ele.children('span.glyphicon').addClass('active');
+              ele.children('span.num').html(++num);
+            }else{
+              alert(data.info);
+              ele.children('span.glyphicon').removeClass('active');
+            }
+          });
+        }
+      }
+    })
+  })
+
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+blockquote{
+	padding:0;
+	border-left: 0.3rem solid #006599;
+	margin-bottom: 2rem;
+	padding-left: 0.8rem;
+	margin-top: 3rem;
+}
+blockquote h3{
+	color:#000;
+}

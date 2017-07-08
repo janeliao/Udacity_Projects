@@ -1,0 +1,11 @@
+.main{
+	margin-bottom: 2rem;
+	padding: 0;
+}
+
+.submit-tip{
+	line-height: 3.4rem;
+	font-size: 2rem;
+	color: red;
+	margin-right: 20px;
+}

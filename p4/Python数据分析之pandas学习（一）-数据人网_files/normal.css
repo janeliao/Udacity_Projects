@@ -1,0 +1,28 @@
+html{
+	font-size: 62.5%;
+}
+
+.red{
+	color: red;
+}
+
+.disnone{
+	display: none;
+}
+
+a.media-heading{
+	display: inline-block;
+}
+
+.container-fluid>.navbar-header{
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.media-left{
+	padding-right: 0;
+}
+
+.main{
+	word-break:break-all;
+}

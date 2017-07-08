@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://shujuren.org/article/207.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Python数据分析之pandas学习（一）-数据人网</title>
+  <meta name="keywords" content="Python数据分析之pandas学习（一）">
+  <meta name="description" content="Python数据分析之pandas学习（一）">
+    
+  <link rel="shortcut icon" href="http://shujuren.org/favicon.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/bootstrap.min.css">
+  
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/head.css">
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/hot-lable.css">
+  
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/footer.css">
+  
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/normal.css">
+  
+  <link rel="stylesheet" href="./Python数据分析之pandas学习（一）-数据人网_files/editormd.min.css">
+
+  
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/blockquote.css">
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/article.css">
+  
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/share.css">
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/hot-lable.css">
+  
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/contribute.css">
+  <link rel="stylesheet" type="text/css" href="./Python数据分析之pandas学习（一）-数据人网_files/footer.css">
+<script src="./Python数据分析之pandas学习（一）-数据人网_files/share.js.下载"></script><link type="text/css" rel="stylesheet" href="./Python数据分析之pandas学习（一）-数据人网_files/katex.min.css"><script id="-cdnjs-cloudflare-com-ajax-libs-KaTeX-0-3-0-katex-min" type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/katex.min.js.下载"></script><link rel="stylesheet" href="./Python数据分析之pandas学习（一）-数据人网_files/share_style1_24.css"><link rel="stylesheet" href="./Python数据分析之pandas学习（一）-数据人网_files/share_popup.css"><link rel="stylesheet" href="./Python数据分析之pandas学习（一）-数据人网_files/select_share.css"></head>
+<body class="">
+  
+    
+  <!-- ===============================导航条================================ -->
+
+  <nav class="topbar container-fluid navbar navbar-default">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand logo" href="http://shujuren.org/"><img src="./Python数据分析之pandas学习（一）-数据人网_files/logo.png" alt="数据人" data-bd-imgshare-binded="1"></a> 
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="http://shujuren.org/">
+            <span class="glyphicon glyphicon-home"></span>
+            首页 <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://shujuren.org/article/207.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-book"></span>
+            Data思维<span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://shujuren.org/category/2">
+                数据动态
+              </a>
+            </li>
+            <li>
+              <a href="http://shujuren.org/category/3">
+                数据应用
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="http://shujuren.org/article/207.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-fire"></span>
+            Data技术<span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="http://shujuren.org/category/5">R</a></li>
+            <li><a href="http://shujuren.org/category/6">Python</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="http://shujuren.org/category/9">Hadoop</a></li>
+            <li><a href="http://shujuren.org/category/8">Spark</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="http://shujuren.org/category/11">机器学习</a></li>
+            <li><a href="http://shujuren.org/category/12">数据分析</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+                  <li>
+            <a href="http://shujuren.org/article/207.html#" data-toggle="modal" data-target="#search">
+              <span class="glyphicon glyphicon-search"></span>
+              搜索
+            </a>
+          </li>
+          <li>
+            <a href="http://shujuren.org/article/207.html#" data-toggle="modal" data-target="#login">
+              <span class="glyphicon glyphicon-log-in"></span>
+              登录
+            </a>
+          </li>
+          <li>
+            <a href="http://shujuren.org/article/207.html#" data-toggle="modal" data-target="#reg">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+              注册
+            </a>
+          </li>        <li>
+          <a href="http://shujuren.org/contribute">
+            <span class="glyphicon glyphicon-edit"></span>
+            人人投稿
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===============================注册登录模态框================================ -->
+  <!-- 登录 -->
+  <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="logLabel" style="display: none;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="logLabel">登录</h4>
+        </div>
+        <form class="form-horizontal" id="login-form">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="logEmail" class="col-sm-3 control-label">账号</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="logEmail" placeholder="请使用邮箱 / 个性域名登录">
+              </div>
+              <p class="col-sm-3 form-tip log-form-tip1 disnone">*邮箱不能为空</p>
+            </div>
+
+            <div class="form-group">
+              <label for="logPassword" class="col-sm-3 control-label">密码</label>
+              <div class="col-sm-6">
+                <input type="password" class="form-control" id="logPassword" placeholder="请输入您的登录密码">
+              </div>
+              <p class="col-sm-3 form-tip log-form-tip2 disnone">*密码不能为空</p>
+            </div>
+
+            <div class="form-group logAuthcode-group disnone">
+              <label for="logAuthcode" class="col-md-3 control-label">验证码：</label>
+              <div class="col-md-6">
+              <div class="input-group">
+                <input type="text" class="form-control" id="logAuthcode" placeholder="请输入验证码">
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="authcodeBtn">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/login" onclick="this.src=&quot;/api/getverify/id/login?x=&quot;+Math.random();" alt="验证码" data-bd-imgshare-binded="1">
+                </button>
+                </span>
+              </div>
+              </div>
+              <p class="col-sm-3 form-tip log-form-tip3 disnone">*验证码不能为空</p>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-3">
+                <div class="checkbox">
+                  <label>
+                    <input id="log-checkbox" type="checkbox"> 记住我
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-offset-1 col-sm-3 forget">
+                <a href="http://shujuren.org/find">忘记密码</a>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            
+            <p class="log-tip pull-left disnone red"></p>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <input value="登录" type="button" class="btn btn-primary" id="login-btn">
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 注册 -->
+  <div class="modal fade" id="reg" tabindex="-1" role="dialog" aria-labelledby="regLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="regLabel">注册</h4>
+        </div>
+
+        <form class="form-horizontal" id="reg-form">
+          <input type="hidden" name="regToken" value="ebb699653d8c584c72c1528b2ce2119b">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="regName" class="col-sm-3 control-label">昵称</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="regName" placeholder="请3-16字符长度的昵称">
+              </div>
+              <p class="col-sm-3 form-tip reg-form-tip1 disnone">*昵称不能为空</p>
+            </div>
+
+            <div class="form-group">
+              <label for="regEmail" class="col-sm-3 control-label">邮箱</label>
+              <div class="col-sm-6">
+                <input type="email" class="form-control" id="regEmail" placeholder="请使用邮箱进行注册">
+              </div>
+              <p class="col-sm-3 form-tip reg-form-tip2 disnone">*邮箱不能为空</p>
+            </div>
+
+            <div class="form-group">
+              <label for="regAuthcode" class="col-sm-3 control-label">验证码</label>
+              <div class="col-sm-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="regAuthcode" placeholder="请输入验证码">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="btn-captcha">
+                              点击获取验证码
+                            </button>
+                  </span>
+                </div>
+              </div>
+              <p class="col-sm-3 form-tip reg-form-tip3 disnone">*验证码不能为空</p>
+            </div>
+
+            <div class="form-group">
+              <label for="regPassword1" class="col-sm-3 control-label">密码</label>
+              <div class="col-sm-6">
+                <input type="password" class="form-control" id="regPassword1" placeholder="请设置您的登录密码">
+              </div>
+              <p class="col-sm-3 form-tip reg-form-tip4 disnone">*密码不能为空</p>
+            </div>
+
+            <div class="form-group">
+              <label for="regPassword2" class="col-sm-3 control-label">确认密码</label>
+              <div class="col-sm-6">
+                <input type="password" class="form-control" id="regPassword2" placeholder="请再次输入密码">
+              </div>
+              <p class="col-sm-3 form-tip reg-form-tip5 disnone">*密码不能为空</p>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            
+            <p class="reg-tip pull-left disnone red"></p>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <input value="注册" type="button" class="btn btn-primary" id="register-btn">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 搜索 -->
+  <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-labelledby="logLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="logLabel">搜索</h4>
+        </div>
+        <form class="form-horizontal" id="login-form" action="http://shujuren.org/search" method="get">
+          <div class="modal-body">
+            <div class="input-group col-sm-10 col-sm-offset-1 search">
+                  <input type="text" class="form-control" placeholder="请输入您所要搜索的内容" name="keyword">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </span>
+              </div>
+            <!-- 热门标签 -->
+                        <div class="hot-lable">
+              <div class="lable-box">
+                <a href="http://shujuren.org/search/keyword/R">R语言</a>
+                <a href="http://shujuren.org/search/keyword/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                <a href="http://shujuren.org/search/keyword/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90">数据分析</a>
+                <a href="http://shujuren.org/search/keyword/Python">Python语言</a>
+                <a href="http://shujuren.org/search/keyword/Spark">Spark框架</a>
+              </div>
+            </div>          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  <div class="main container">
+    <!-- 面包屑导航 -->
+    <ul class="nav nav-pills">
+          <li class="now-position"><strong>当前位置&nbsp;:</strong></li>
+          <li><a href="http://shujuren.org/">首页</a></li>
+          <li><a>&gt;</a></li>
+          <li><a href="http://shujuren.org/category/6">Python</a></li>
+          <li><a>&gt;</a></li>
+          <li><a href="http://shujuren.org/article/207.html">Python数据分析之pandas学习（一）</a></li>
+    </ul>
+    <div class="articles container row">
+      <!-- 文章列表 -->
+      <div class="main-left col-md-8 col-xs-12 box">
+        <h2>
+          <span class="article-lable">原创</span>
+                    <strong>Python数据分析之pandas学习（一）</strong>
+        </h2>
+        
+
+        <p class="detail">
+          <a href="http://shujuren.org/u/6b927d144e3e993122703f3d5e7ff3ad">
+            <span class="glyphicon glyphicon-user"></span>
+            <span class="num">lsxxx2011</span>
+          </a>
+          
+          <span class="glyphicon glyphicon-eye-open"></span>
+          <span class="num">5818</span>
+
+          <a id="btn-atriclepraise">
+                          <span class="glyphicon glyphicon-heart"></span>
+              <span class="num">0</span>          </a>
+          
+          <a href="http://shujuren.org/article/207.html#comment">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span class="num">0</span>
+          </a>
+
+          <a id="btn-favorite">
+                          <span class="glyphicon glyphicon-star-empty"></span>
+              <span class="num">0</span>          </a>
+
+          <span class="glyphicon glyphicon-time"></span>
+          <span class="num">2016-08-20</span>
+          
+        </p>
+        <hr>
+
+
+
+        <div id="layout">
+          <div id="test-editormd-view2" class="markdown-body editormd-html-preview">
+                      
+          <p>我们接着上次分享给大家的两篇文章：<a href="http://mp.weixin.qq.com/s?__biz=MzIxNjA2ODUzNg==&amp;mid=2651435143&amp;idx=1&amp;sn=fb54e5d9129492a24a14fef71bf05af8&amp;scene=21#wechat_redirect" title="Python数据分析之numpy学习（一）">Python数据分析之numpy学习（一）</a>和<a href="http://mp.weixin.qq.com/s?__biz=MzIxNjA2ODUzNg==&amp;tempkey=mZAV3DbPs0TN40KxPDHd35%2FMZKVSyYX08ZMt8PAYAdT9ysvyD3PYV%2Bk4ragCwpYyjs3gYCg8k7VvhdLVDrCLfp3mq92w0qu0%2F3uY1n3OPILXH9Y2aeCnDCtUcdG0gWC6uF7vZlbhVgbGeq6BsRzRpw%3D%3D&amp;#rd" title="Python数据分析之numpy学习（二）">Python数据分析之numpy学习（二）</a>，继续讨论使用Python中的pandas模块进行数据分。在接下来的两期pandas介绍中将学习到如下8块内容：<br>1、数据结构简介：DataFrame和Series<br>2、数据索引index<br>3、利用pandas查询数据<br>4、利用pandas的DataFrames进行统计分析<br>5、利用pandas实现SQL操作<br>6、利用pandas进行缺失值的处理<br>7、利用pandas实现Excel的数据透视表功能<br>8、多层索引的使用<br><img src="./Python数据分析之pandas学习（一）-数据人网_files/57b87093be417.png" alt="" data-bd-imgshare-binded="1"></p>
+<h1 id="h1--"><a name="一、数据结构介绍" class="reference-link"></a><span class="header-link octicon octicon-link"></span>一、数据结构介绍</h1><p>在pandas中有两类非常重要的数据结构，即序列Series和数据框DataFrame。Series类似于numpy中的一维数组，除了通吃一维数组可用的函数或方法，而且其可通过索引标签的方式获取数据，还具有索引的自动对齐功能；DataFrame类似于numpy中的二维数组，同样可以通用numpy数组的函数和方法，而且还具有其他灵活应用，后续会介绍到。</p>
+<h3 id="h3-1-series-"><a name="1、Series的创建" class="reference-link"></a><span class="header-link octicon octicon-link"></span>1、Series的创建</h3><p>序列的创建主要有三种方式：</p>
+<h5 id="h5--strong-1-strong-"><a name="&lt;strong&gt;1）通过一维数组创建序列&lt;/strong&gt;" class="reference-link"></a><span class="header-link octicon octicon-link"></span><strong>1）通过一维数组创建序列</strong></h5><pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="kwd">import</span><span class="pln"> numpy </span><span class="kwd">as</span><span class="pln"> np</span><span class="pun">,</span><span class="pln"> pandas </span><span class="kwd">as</span><span class="pln"> pd</span></code></li><li class="L1"><code class="lang-python"><span class="pln">arr1 </span><span class="pun">=</span><span class="pln"> np</span><span class="pun">.</span><span class="pln">arange</span><span class="pun">(</span><span class="lit">10</span><span class="pun">)</span></code></li><li class="L2"><code class="lang-python"><span class="pln">arr1</span></code></li><li class="L3"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">arr1</span><span class="pun">)</span></code></li><li class="L4"><code class="lang-python"></code></li><li class="L5"><code class="lang-python"><span class="pln">s1 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">Series</span><span class="pun">(</span><span class="pln">arr1</span><span class="pun">)</span></code></li><li class="L6"><code class="lang-python"><span class="pln">s1</span></code></li><li class="L7"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">s1</span><span class="pun">)</span></code></li></ol></pre>
+<h5 id="h5-2-"><a name="2）通过字典的方式创建序列" class="reference-link"></a><span class="header-link octicon octicon-link"></span>2）通过字典的方式创建序列</h5><pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">dic1 </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="str">'a'</span><span class="pun">:</span><span class="lit">10</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">:</span><span class="lit">20</span><span class="pun">,</span><span class="str">'c'</span><span class="pun">:</span><span class="lit">30</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">:</span><span class="lit">40</span><span class="pun">,</span><span class="str">'e'</span><span class="pun">:</span><span class="lit">50</span><span class="pun">}</span></code></li><li class="L1"><code class="lang-python"><span class="pln">dic1</span></code></li><li class="L2"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">dic1</span><span class="pun">)</span></code></li><li class="L3"><code class="lang-python"></code></li><li class="L4"><code class="lang-python"><span class="pln">s2 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">Series</span><span class="pun">(</span><span class="pln">dic1</span><span class="pun">)</span></code></li><li class="L5"><code class="lang-python"><span class="pln">s2</span></code></li><li class="L6"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">s2</span><span class="pun">)</span></code></li></ol></pre>
+<h5 id="h5-3-dataframe-"><a name="3）通过DataFrame中的某一行或某一列创建序列" class="reference-link"></a><span class="header-link octicon octicon-link"></span>3）通过DataFrame中的某一行或某一列创建序列</h5><p>这部分内容我们放在后面讲，因为下面就开始将DataFrame的创建。</p>
+<h3 id="h3-2-dataframe-"><a name="2、DataFrame的创建" class="reference-link"></a><span class="header-link octicon octicon-link"></span>2、DataFrame的创建</h3><p>数据框的创建主要有三种方式：</p>
+<h5 id="h5-1-"><a name="1）通过二维数组创建数据框" class="reference-link"></a><span class="header-link octicon octicon-link"></span>1）通过二维数组创建数据框</h5><pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">arr2 </span><span class="pun">=</span><span class="pln"> np</span><span class="pun">.</span><span class="pln">array</span><span class="pun">(</span><span class="pln">np</span><span class="pun">.</span><span class="pln">arange</span><span class="pun">(</span><span class="lit">12</span><span class="pun">)).</span><span class="pln">reshape</span><span class="pun">(</span><span class="lit">4</span><span class="pun">,</span><span class="lit">3</span><span class="pun">)</span></code></li><li class="L1"><code class="lang-python"><span class="pln">arr2</span></code></li><li class="L2"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">arr2</span><span class="pun">)</span></code></li><li class="L3"><code class="lang-python"></code></li><li class="L4"><code class="lang-python"><span class="pln">df1 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">DataFrame</span><span class="pun">(</span><span class="pln">arr2</span><span class="pun">)</span></code></li><li class="L5"><code class="lang-python"><span class="pln">df1</span></code></li><li class="L6"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">df1</span><span class="pun">)</span></code></li></ol></pre>
+<h5 id="h5-2-"><a name="2）通过字典的方式创建数据框" class="reference-link"></a><span class="header-link octicon octicon-link"></span>2）通过字典的方式创建数据框</h5><p>以下以两种字典来创建数据框，一个是字典列表，一个是嵌套字典。</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">dic2 </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="str">'a'</span><span class="pun">:[</span><span class="lit">1</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">4</span><span class="pun">],</span><span class="str">'b'</span><span class="pun">:[</span><span class="lit">5</span><span class="pun">,</span><span class="lit">6</span><span class="pun">,</span><span class="lit">7</span><span class="pun">,</span><span class="lit">8</span><span class="pun">],</span></code></li><li class="L1"><code class="lang-python"><span class="pln">        </span><span class="str">'c'</span><span class="pun">:[</span><span class="lit">9</span><span class="pun">,</span><span class="lit">10</span><span class="pun">,</span><span class="lit">11</span><span class="pun">,</span><span class="lit">12</span><span class="pun">],</span><span class="str">'d'</span><span class="pun">:[</span><span class="lit">13</span><span class="pun">,</span><span class="lit">14</span><span class="pun">,</span><span class="lit">15</span><span class="pun">,</span><span class="lit">16</span><span class="pun">]}</span></code></li><li class="L2"><code class="lang-python"><span class="pln">dic2</span></code></li><li class="L3"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">dic2</span><span class="pun">)</span></code></li><li class="L4"><code class="lang-python"></code></li><li class="L5"><code class="lang-python"><span class="pln">df2 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">DataFrame</span><span class="pun">(</span><span class="pln">dic2</span><span class="pun">)</span></code></li><li class="L6"><code class="lang-python"><span class="pln">df2</span></code></li><li class="L7"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">df2</span><span class="pun">)</span></code></li><li class="L8"><code class="lang-python"></code></li><li class="L9"><code class="lang-python"><span class="pln">dic3 </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="str">'one'</span><span class="pun">:{</span><span class="str">'a'</span><span class="pun">:</span><span class="lit">1</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">:</span><span class="lit">2</span><span class="pun">,</span><span class="str">'c'</span><span class="pun">:</span><span class="lit">3</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">:</span><span class="lit">4</span><span class="pun">},</span></code></li><li class="L0"><code class="lang-python"><span class="pln">        </span><span class="str">'two'</span><span class="pun">:{</span><span class="str">'a'</span><span class="pun">:</span><span class="lit">5</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">:</span><span class="lit">6</span><span class="pun">,</span><span class="str">'c'</span><span class="pun">:</span><span class="lit">7</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">:</span><span class="lit">8</span><span class="pun">},</span></code></li><li class="L1"><code class="lang-python"><span class="pln">        </span><span class="str">'three'</span><span class="pun">:{</span><span class="str">'a'</span><span class="pun">:</span><span class="lit">9</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">:</span><span class="lit">10</span><span class="pun">,</span><span class="str">'c'</span><span class="pun">:</span><span class="lit">11</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">:</span><span class="lit">12</span><span class="pun">}}</span></code></li><li class="L2"><code class="lang-python"><span class="pln">dic3</span></code></li><li class="L3"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">dic3</span><span class="pun">)</span></code></li><li class="L4"><code class="lang-python"></code></li><li class="L5"><code class="lang-python"><span class="pln">df3 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">DataFrame</span><span class="pun">(</span><span class="pln">dic3</span><span class="pun">)</span></code></li><li class="L6"><code class="lang-python"><span class="pln">df3</span></code></li><li class="L7"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">df3</span><span class="pun">)</span></code></li></ol></pre>
+<h5 id="h5-3-"><a name="3）通过数据框的方式创建数据框" class="reference-link"></a><span class="header-link octicon octicon-link"></span>3）通过数据框的方式创建数据框</h5><pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">df4 </span><span class="pun">=</span><span class="pln"> df3</span><span class="pun">[[</span><span class="str">'one'</span><span class="pun">,</span><span class="str">'three'</span><span class="pun">]]</span></code></li><li class="L1"><code class="lang-python"><span class="pln">df4</span></code></li><li class="L2"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">df4</span><span class="pun">)</span></code></li><li class="L3"><code class="lang-python"></code></li><li class="L4"><code class="lang-python"><span class="pln">s3 </span><span class="pun">=</span><span class="pln"> df3</span><span class="pun">[</span><span class="str">'one'</span><span class="pun">]</span></code></li><li class="L5"><code class="lang-python"><span class="pln">s3</span></code></li><li class="L6"><code class="lang-python"><span class="pln">type</span><span class="pun">(</span><span class="pln">s3</span><span class="pun">)</span></code></li></ol></pre>
+<h1 id="h1--index"><a name="二、数据索引index" class="reference-link"></a><span class="header-link octicon octicon-link"></span>二、数据索引index</h1><p>细致的朋友可能会发现一个现象，不论是序列也好，还是数据框也好，对象的最左边总有一个非原始数据对象，这个是什么呢？不错，就是我们接下来要介绍的索引。<br>在我看来，序列或数据框的索引有两大用处，一个是通过索引值或索引标签获取目标数据，另一个是通过索引，可以使序列或数据框的计算、操作实现自动化对齐，下面我们就来看看这两个功能的应用。</p>
+<h3 id="h3-1-"><a name="1、通过索引值或索引标签获取数据" class="reference-link"></a><span class="header-link octicon octicon-link"></span>1、通过索引值或索引标签获取数据</h3><pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">s4 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">Series</span><span class="pun">(</span><span class="pln">np</span><span class="pun">.</span><span class="pln">array</span><span class="pun">([</span><span class="lit">1</span><span class="pun">,</span><span class="lit">1</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">5</span><span class="pun">,</span><span class="lit">8</span><span class="pun">]))</span></code></li><li class="L1"><code class="lang-python"><span class="pln">s4</span></code></li></ol></pre>
+<p>如果不给序列一个指定的索引值，则序列自动生成一个从0开始的自增索引。可以通过index查看序列的索引：</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">s4</span><span class="pun">.</span><span class="pln">index</span></code></li></ol></pre>
+<p>现在我们为序列设定一个自定义的索引值：</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">s4</span><span class="pun">.</span><span class="pln">index </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="str">'a'</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">,</span><span class="str">'c'</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">,</span><span class="str">'e'</span><span class="pun">,</span><span class="str">'f'</span><span class="pun">]</span></code></li><li class="L1"><code class="lang-python"><span class="pln">s4</span></code></li></ol></pre>
+<p>序列有了索引，就可以通过索引值或索引标签进行数据的获取：</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">s4</span><span class="pun">[</span><span class="lit">3</span><span class="pun">]</span></code></li><li class="L1"><code class="lang-python"><span class="pln">s4</span><span class="pun">[</span><span class="str">'e'</span><span class="pun">]</span></code></li><li class="L2"><code class="lang-python"><span class="pln">s4</span><span class="pun">[[</span><span class="lit">1</span><span class="pun">,</span><span class="lit">3</span><span class="pun">,</span><span class="lit">5</span><span class="pun">]]</span></code></li><li class="L3"><code class="lang-python"><span class="pln">s4</span><span class="pun">[[</span><span class="str">'a'</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">,</span><span class="str">'f'</span><span class="pun">]]</span></code></li><li class="L4"><code class="lang-python"><span class="pln">s4</span><span class="pun">[:</span><span class="lit">4</span><span class="pun">]</span></code></li><li class="L5"><code class="lang-python"><span class="pln">s4</span><span class="pun">[</span><span class="str">'c'</span><span class="pun">:]</span></code></li><li class="L6"><code class="lang-python"><span class="pln">s4</span><span class="pun">[</span><span class="str">'b'</span><span class="pun">:</span><span class="str">'e'</span><span class="pun">]</span></code></li></ol></pre>
+<p>千万注意：如果通过索引标签获取数据的话，末端标签所对应的值是可以返回的！在一维数组中，就无法通过索引标签获取数据，这也是序列不同于一维数组的一个方面。</p>
+<h3 id="h3-2-"><a name="2、自动化对齐" class="reference-link"></a><span class="header-link octicon octicon-link"></span>2、自动化对齐</h3><p>如果有两个序列，需要对这两个序列进行算术运算，这时索引的存在就体现的它的价值了—自动化对齐.</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">s5 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">Series</span><span class="pun">(</span><span class="pln">np</span><span class="pun">.</span><span class="pln">array</span><span class="pun">([</span><span class="lit">10</span><span class="pun">,</span><span class="lit">15</span><span class="pun">,</span><span class="lit">20</span><span class="pun">,</span><span class="lit">30</span><span class="pun">,</span><span class="lit">55</span><span class="pun">,</span><span class="lit">80</span><span class="pun">]),</span><span class="pln"> </span></code></li><li class="L1"><code class="lang-python"><span class="pln">               index </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="str">'a'</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">,</span><span class="str">'c'</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">,</span><span class="str">'e'</span><span class="pun">,</span><span class="str">'f'</span><span class="pun">])</span></code></li><li class="L2"><code class="lang-python"><span class="pln">s5</span></code></li><li class="L3"><code class="lang-python"><span class="pln">s6 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">Series</span><span class="pun">(</span><span class="pln">np</span><span class="pun">.</span><span class="pln">array</span><span class="pun">([</span><span class="lit">12</span><span class="pun">,</span><span class="lit">11</span><span class="pun">,</span><span class="lit">13</span><span class="pun">,</span><span class="lit">15</span><span class="pun">,</span><span class="lit">14</span><span class="pun">,</span><span class="lit">16</span><span class="pun">]),</span><span class="pln"> </span></code></li><li class="L4"><code class="lang-python"><span class="pln">               index </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="str">'a'</span><span class="pun">,</span><span class="str">'c'</span><span class="pun">,</span><span class="str">'g'</span><span class="pun">,</span><span class="str">'b'</span><span class="pun">,</span><span class="str">'d'</span><span class="pun">,</span><span class="str">'f'</span><span class="pun">])</span></code></li><li class="L5"><code class="lang-python"><span class="pln">s6</span></code></li><li class="L6"><code class="lang-python"></code></li><li class="L7"><code class="lang-python"><span class="pln">s5 </span><span class="pun">+</span><span class="pln"> s6</span></code></li><li class="L8"><code class="lang-python"><span class="pln">s5</span><span class="pun">/</span><span class="pln">s6</span></code></li></ol></pre>
+<p>由于s5中没有对应的g索引，s6中没有对应的e索引，所以数据的运算会产生两个缺失值NaN。注意，这里的算术结果就实现了两个序列索引的自动对齐，而非简单的将两个序列加总或相除。对于数据框的对齐，不仅仅是行索引的自动对齐，同时也会自动对齐列索引（变量名）</p>
+<p>数据框中同样有索引，而且数据框是二维数组的推广，所以其不仅有行索引，而且还存在列索引，关于数据框中的索引相比于序列的应用要强大的多，这部分内容将放在数据查询中讲解。</p>
+<h3 id="h3--pandas-"><a name="三、利用pandas查询数据" class="reference-link"></a><span class="header-link octicon octicon-link"></span>三、利用pandas查询数据</h3><p>这里的查询数据相当于R语言里的subset功能，可以通过布尔索引有针对的选取原数据的子集、指定行、指定列等。我们先导入一个student数据集：</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="pln">io</span><span class="pun">.</span><span class="pln">parsers</span><span class="pun">.</span><span class="pln">read_csv</span><span class="pun">(</span><span class="str">'C:\\Users\\admin\\Desktop\\student.csv'</span><span class="pun">)</span></code></li></ol></pre>
+<p>查询数据的前5行或末尾5行</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">.</span><span class="pln">head</span><span class="pun">()</span></code></li><li class="L1"><code class="lang-python"><span class="pln">student</span><span class="pun">.</span><span class="pln">tail</span><span class="pun">()</span></code></li></ol></pre>
+<p>查询指定的行</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">.</span><span class="pln">ix</span><span class="pun">[[</span><span class="lit">0</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">4</span><span class="pun">,</span><span class="lit">5</span><span class="pun">,</span><span class="lit">7</span><span class="pun">]]</span><span class="pln"> </span><span class="com">#这里的ix索引标签函数必须是中括号[]</span></code></li></ol></pre>
+<p>查询指定的列</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">[[</span><span class="str">'Name'</span><span class="pun">,</span><span class="str">'Height'</span><span class="pun">,</span><span class="str">'Weight'</span><span class="pun">]].</span><span class="pln">head</span><span class="pun">()</span><span class="pln">  </span><span class="com">#如果多个列的话，必须使用双重中括号</span></code></li></ol></pre>
+<p>也可以通过ix索引标签查询指定的列</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">.</span><span class="pln">ix</span><span class="pun">[:,[</span><span class="str">'Name'</span><span class="pun">,</span><span class="str">'Height'</span><span class="pun">,</span><span class="str">'Weight'</span><span class="pun">]].</span><span class="pln">head</span><span class="pun">()</span></code></li></ol></pre>
+<p>查询指定的行和列</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">.</span><span class="pln">ix</span><span class="pun">[[</span><span class="lit">0</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">4</span><span class="pun">,</span><span class="lit">5</span><span class="pun">,</span><span class="lit">7</span><span class="pun">],[</span><span class="str">'Name'</span><span class="pun">,</span><span class="str">'Height'</span><span class="pun">,</span><span class="str">'Weight'</span><span class="pun">]].</span><span class="pln">head</span><span class="pun">()</span></code></li></ol></pre>
+<p>以上是从行或列的角度查询数据的子集，现在我们来看看如何通过布尔索引实现数据的子集查询。<br>查询所有女生的信息</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">[</span><span class="pln">student</span><span class="pun">[</span><span class="str">'Sex'</span><span class="pun">]==</span><span class="str">'F'</span><span class="pun">]</span></code></li></ol></pre>
+<p>查询出所有12岁以上的女生信息</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">[(</span><span class="pln">student</span><span class="pun">[</span><span class="str">'Sex'</span><span class="pun">]==</span><span class="str">'F'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln"> </span><span class="pun">(</span><span class="pln">student</span><span class="pun">[</span><span class="str">'Age'</span><span class="pun">]&gt;</span><span class="lit">12</span><span class="pun">)]</span></code></li></ol></pre>
+<p>查询出所有12岁以上的女生姓名、身高和体重</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">[(</span><span class="pln">student</span><span class="pun">[</span><span class="str">'Sex'</span><span class="pun">]==</span><span class="str">'F'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln"> </span><span class="pun">(</span><span class="pln">student</span><span class="pun">[</span><span class="str">'Age'</span><span class="pun">]&gt;</span><span class="lit">12</span><span class="pun">)][[</span><span class="str">'Name'</span><span class="pun">,</span><span class="str">'Height'</span><span class="pun">,</span><span class="str">'Weight'</span><span class="pun">]]</span></code></li></ol></pre>
+<p>上面的查询逻辑其实非常的简单，需要注意的是，如果是多个条件的查询，必须在&amp;（且）或者|（或）的两端条件用括号括起来。</p>
+<h1 id="h1--"><a name="四、统计分析" class="reference-link"></a><span class="header-link octicon octicon-link"></span>四、统计分析</h1><p>pandas模块为我们提供了非常多的描述性统计分析的指标函数，如总和、均值、最小值、最大值等，我们来具体看看这些函数：<br>首先随机生成三组数据</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">np</span><span class="pun">.</span><span class="pln">random</span><span class="pun">.</span><span class="pln">seed</span><span class="pun">(</span><span class="lit">1234</span><span class="pun">)</span></code></li><li class="L1"><code class="lang-python"><span class="pln">d1 </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">Series</span><span class="pun">(</span><span class="lit">2</span><span class="pun">*</span><span class="pln">np</span><span class="pun">.</span><span class="pln">random</span><span class="pun">.</span><span class="pln">normal</span><span class="pun">(</span><span class="pln">size </span><span class="pun">=</span><span class="pln"> </span><span class="lit">100</span><span class="pun">)+</span><span class="lit">3</span><span class="pun">)</span></code></li><li class="L2"><code class="lang-python"><span class="pln">d2 </span><span class="pun">=</span><span class="pln"> np</span><span class="pun">.</span><span class="pln">random</span><span class="pun">.</span><span class="pln">f</span><span class="pun">(</span><span class="lit">2</span><span class="pun">,</span><span class="lit">4</span><span class="pun">,</span><span class="pln">size </span><span class="pun">=</span><span class="pln"> </span><span class="lit">100</span><span class="pun">)</span></code></li><li class="L3"><code class="lang-python"><span class="pln">d3 </span><span class="pun">=</span><span class="pln"> np</span><span class="pun">.</span><span class="pln">random</span><span class="pun">.</span><span class="pln">randint</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="lit">100</span><span class="pun">,</span><span class="pln">size </span><span class="pun">=</span><span class="pln"> </span><span class="lit">100</span><span class="pun">)</span></code></li><li class="L4"><code class="lang-python"></code></li><li class="L5"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">count</span><span class="pun">()</span><span class="pln">  </span><span class="com">#非空元素计算</span></code></li><li class="L6"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">min</span><span class="pun">()</span><span class="pln">    </span><span class="com">#最小值</span></code></li><li class="L7"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">max</span><span class="pun">()</span><span class="pln">    </span><span class="com">#最大值</span></code></li><li class="L8"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">idxmin</span><span class="pun">()</span><span class="pln"> </span><span class="com">#最小值的位置，类似于R中的which.min函数</span></code></li><li class="L9"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">idxmax</span><span class="pun">()</span><span class="pln"> </span><span class="com">#最大值的位置，类似于R中的which.max函数</span></code></li><li class="L0"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">quantile</span><span class="pun">(</span><span class="lit">0.1</span><span class="pun">)</span><span class="pln">    </span><span class="com">#10%分位数</span></code></li><li class="L1"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">sum</span><span class="pun">()</span><span class="pln">    </span><span class="com">#求和</span></code></li><li class="L2"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">mean</span><span class="pun">()</span><span class="pln">   </span><span class="com">#均值</span></code></li><li class="L3"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">median</span><span class="pun">()</span><span class="pln"> </span><span class="com">#中位数</span></code></li><li class="L4"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">mode</span><span class="pun">()</span><span class="pln">   </span><span class="com">#众数</span></code></li><li class="L5"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">var</span><span class="pun">()</span><span class="pln">    </span><span class="com">#方差</span></code></li><li class="L6"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">std</span><span class="pun">()</span><span class="pln">    </span><span class="com">#标准差</span></code></li><li class="L7"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">mad</span><span class="pun">()</span><span class="pln">    </span><span class="com">#平均绝对偏差</span></code></li><li class="L8"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">skew</span><span class="pun">()</span><span class="pln">   </span><span class="com">#偏度</span></code></li><li class="L9"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">kurt</span><span class="pun">()</span><span class="pln">   </span><span class="com">#峰度</span></code></li><li class="L0"><code class="lang-python"><span class="pln">d1</span><span class="pun">.</span><span class="pln">describe</span><span class="pun">()</span><span class="pln">   </span><span class="com">#一次性输出多个描述性统计指标</span></code></li></ol></pre>
+<p>必须注意的是，descirbe方法只能针对序列或数据框，一维数组是没有这个方法的</p>
+<p>这里自定义一个函数，将这些统计描述指标全部汇总到一起:</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="kwd">def</span><span class="pln"> stats</span><span class="pun">(</span><span class="pln">x</span><span class="pun">):</span></code></li><li class="L1"><code class="lang-python"><span class="pln">    </span><span class="kwd">return</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">Series</span><span class="pun">([</span><span class="pln">x</span><span class="pun">.</span><span class="pln">count</span><span class="pun">(),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">min</span><span class="pun">(),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">idxmin</span><span class="pun">(),</span></code></li><li class="L2"><code class="lang-python"><span class="pln">               x</span><span class="pun">.</span><span class="pln">quantile</span><span class="pun">(.</span><span class="lit">25</span><span class="pun">),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">median</span><span class="pun">(),</span></code></li><li class="L3"><code class="lang-python"><span class="pln">               x</span><span class="pun">.</span><span class="pln">quantile</span><span class="pun">(.</span><span class="lit">75</span><span class="pun">),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">mean</span><span class="pun">(),</span></code></li><li class="L4"><code class="lang-python"><span class="pln">               x</span><span class="pun">.</span><span class="pln">max</span><span class="pun">(),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">idxmax</span><span class="pun">(),</span></code></li><li class="L5"><code class="lang-python"><span class="pln">               x</span><span class="pun">.</span><span class="pln">mad</span><span class="pun">(),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">var</span><span class="pun">(),</span></code></li><li class="L6"><code class="lang-python"><span class="pln">               x</span><span class="pun">.</span><span class="pln">std</span><span class="pun">(),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">skew</span><span class="pun">(),</span><span class="pln">x</span><span class="pun">.</span><span class="pln">kurt</span><span class="pun">()],</span></code></li><li class="L7"><code class="lang-python"><span class="pln">              index </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="str">'Count'</span><span class="pun">,</span><span class="str">'Min'</span><span class="pun">,</span><span class="str">'Whicn_Min'</span><span class="pun">,</span></code></li><li class="L8"><code class="lang-python"><span class="pln">                       </span><span class="str">'Q1'</span><span class="pun">,</span><span class="str">'Median'</span><span class="pun">,</span><span class="str">'Q3'</span><span class="pun">,</span><span class="str">'Mean'</span><span class="pun">,</span></code></li><li class="L9"><code class="lang-python"><span class="pln">                       </span><span class="str">'Max'</span><span class="pun">,</span><span class="str">'Which_Max'</span><span class="pun">,</span><span class="str">'Mad'</span><span class="pun">,</span></code></li><li class="L0"><code class="lang-python"><span class="pln">                       </span><span class="str">'Var'</span><span class="pun">,</span><span class="str">'Std'</span><span class="pun">,</span><span class="str">'Skew'</span><span class="pun">,</span><span class="str">'Kurt'</span><span class="pun">])</span></code></li><li class="L1"><code class="lang-python"><span class="pln">stats</span><span class="pun">(</span><span class="pln">d1</span><span class="pun">)</span></code></li></ol></pre>
+<p>在实际的工作中，我们可能需要处理的是一系列的数值型数据框，如何将这个函数应用到数据框中的每一列呢？可以使用apply函数，这个非常类似于R中的apply的应用方法。<br>将之前创建的d1,d2,d3数据构建数据框:</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">df </span><span class="pun">=</span><span class="pln"> pd</span><span class="pun">.</span><span class="typ">DataFrame</span><span class="pun">(</span><span class="pln">np</span><span class="pun">.</span><span class="pln">array</span><span class="pun">([</span><span class="pln">d1</span><span class="pun">,</span><span class="pln">d2</span><span class="pun">,</span><span class="pln">d3</span><span class="pun">]).</span><span class="pln">T</span><span class="pun">,</span><span class="pln">columns</span><span class="pun">=[</span><span class="str">'x1'</span><span class="pun">,</span><span class="str">'x2'</span><span class="pun">,</span><span class="str">'x3'</span><span class="pun">])</span></code></li><li class="L1"><code class="lang-python"><span class="pln">df</span><span class="pun">.</span><span class="pln">head</span><span class="pun">()</span></code></li><li class="L2"><code class="lang-python"><span class="pln">df</span><span class="pun">.</span><span class="pln">apply</span><span class="pun">(</span><span class="pln">stats</span><span class="pun">)</span></code></li></ol></pre>
+<p>非常完美，就这样很简单的创建了数值型数据的统计性描述。如果是离散型数据呢？就不能用这个统计口径了，我们需要统计离散变量的观测数、唯一值个数、众数水平及个数。你只需要使用describe方法就可以实现这样的统计了。</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">student</span><span class="pun">[</span><span class="str">'Sex'</span><span class="pun">].</span><span class="pln">describe</span><span class="pun">()</span></code></li></ol></pre>
+<p>除以上的简单描述性统计之外，还提供了连续变量的相关系数（corr）和协方差矩阵（cov）的求解，这个跟R语言是一致的用法。</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">df</span><span class="pun">.</span><span class="pln">corr</span><span class="pun">()</span></code></li></ol></pre>
+<p>关于相关系数的计算可以调用pearson方法或kendell方法或spearman方法，默认使用pearson方法。</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">df</span><span class="pun">.</span><span class="pln">corr</span><span class="pun">(</span><span class="str">'spearman'</span><span class="pun">)</span></code></li></ol></pre>
+<p>如果只想关注某一个变量与其余变量的相关系数的话，可以使用corrwith,如下方只关心x1与其余变量的相关系数:</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">df</span><span class="pun">.</span><span class="pln">corrwith</span><span class="pun">(</span><span class="pln">df</span><span class="pun">[</span><span class="str">'x1'</span><span class="pun">])</span></code></li></ol></pre>
+<p>数值型变量间的协方差矩阵</p>
+<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code class="lang-python"><span class="pln">df</span><span class="pun">.</span><span class="pln">cov</span><span class="pun">()</span></code></li></ol></pre>
+<p>今天就介绍到这里，在下一期中我们继续剩余部分的介绍和讲解。</p>
+<p>数据人网作者：刘顺祥<br>数据分析师，热爱数据分析与挖掘工作，擅长使用Ｒ语言，目前自学Python语言。</p>
+<blockquote>
+<p><strong>数据人网</strong>是数据人学习、交流和分享的平台<a href="http://shujuren.org/">http://shujuren.org</a> 。专注于从数据中学习。<br><strong>平台的理念</strong>：人人投稿，知识共享；人人分析，洞见驱动；智慧聚合，普惠人人。<br>您在数据人网平台，可以1）学习数据知识；2）创建数据博客；3）认识数据朋友；4）寻找数据工作；5）找到其它与数据相关的干货。<br><strong>我们努力坚持做原创，分享和传播数据知识干货！</strong><br>我们都是数据人，数据是有价值的，坚定不移地利用数据价值创造价值！</p>
+</blockquote>
+<p>严禁修改，可以转载，请注明出自数据人网。</p>
+</div>
+          <div style="text-align: center;">
+            
+          </div>
+          <!-- 分享 -->
+          <div class="share-box">
+            <div class="bdsharebuttonbox bdshare-button-style1-24" data-bd-bind="1498115512834">
+              <a href="http://shujuren.org/article/207.html#" class="bds_more" data-cmd="more"></a>
+              <a href="http://shujuren.org/article/207.html#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="http://shujuren.org/article/207.html#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+              <a href="http://shujuren.org/article/207.html#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+              <a href="http://shujuren.org/article/207.html#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="http://shujuren.org/article/207.html#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+            </div>
+          </div>
+          <script>
+            window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["weixin","sqq","qzone","tsina","tqq"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","sqq","qzone","tsina","tqq"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+          </script>
+          
+        </div>
+
+
+        <!-- 评论区 -->
+        <div class="comment row" id="comment">
+          <div class="col-md-12">
+                          评论请先&nbsp;<a href="http://shujuren.org/article/207.html#" data-toggle="modal" data-target="#login">登录</a><br>
+              还没有账号？&nbsp;<a href="http://shujuren.org/article/207.html#" data-toggle="modal" data-target="#reg">注册</a>          </div>
+
+          <!-- 评论列表 -->
+          <div class="col-md-12 comment-list-box">
+                      </div>
+        </div>
+      </div>
+
+      <div class="main-right col-md-4 col-xs-12">
+        <!-- 作者 -->
+        <div class="writer-lable">
+          <blockquote>
+            <h3>数据人</h3>
+          </blockquote>
+
+          <div class="writer-box">
+            <div class="thumbnail">
+              <a href="http://shujuren.org/u/6b927d144e3e993122703f3d5e7ff3ad"><img src="./Python数据分析之pandas学习（一）-数据人网_files/6b927d144e3e993122703f3d5e7ff3ad_64.png" alt="lsxxx2011" class="center-block img-circle writer-img" data-bd-imgshare-binded="1"></a>
+              <div class="caption">
+                <h3 class="text-center"><span class="glyphicon glyphicon-user"></span><a href="http://shujuren.org/u/6b927d144e3e993122703f3d5e7ff3ad">lsxxx2011</a></h3>
+                <p class="text-center">数据分析师</p>
+
+                                  <a class="btn btn-primary pull-right attention" id="6b927d144e3e993122703f3d5e7ff3ad" role="button">
+                    <span class="glyphicon glyphicon glyphicon-plus"></span>
+                    &nbsp;关注
+                  </a>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 热门标签 -->
+        <div class="hot-lable">
+          <blockquote>
+            <h3>热门标签</h3>
+          </blockquote>
+
+          <!-- 热门标签 -->
+                      <div class="hot-lable">
+              <div class="lable-box">
+                <a href="http://shujuren.org/search/keyword/R">R语言</a>
+                <a href="http://shujuren.org/search/keyword/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>
+                <a href="http://shujuren.org/search/keyword/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90">数据分析</a>
+                <a href="http://shujuren.org/search/keyword/Python">Python语言</a>
+                <a href="http://shujuren.org/search/keyword/Spark">Spark框架</a>
+              </div>
+            </div>        </div>
+
+        <!-- 分享达人 -->
+        <!-- from cache Page_top_post_user-->        <!-- 分享达人 -->
+        <blockquote>
+            <h3>分享达人</h3>
+          </blockquote><table class="share table table-hover">
+          
+
+          <tbody><tr class="share-header">
+            <th>排名</th>
+            <th class="share-people">分享人</th>
+            <th>文章数</th>
+          </tr>
+          <tr>
+              <th class="share-num"><p><span class="hot1">1</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/luqin" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/95e548a8e1fd6cdab983262bda5211b4_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  陆勤                </a>
+              </th>
+              <th class="share-num"><p>213</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot2">2</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/rinnovation" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/cb70abfb972cfa29393c48ce7f4d8548_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  firedata                </a>
+              </th>
+              <th class="share-num"><p>63</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot3">3</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/shujukuanjie" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/e773ca641743c710caf76b57d098d4be_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  数据跨界                </a>
+              </th>
+              <th class="share-num"><p>56</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot">4</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/shushang" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/ef400479341dc01f5f6b6fd1a99b02fb_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  数商                </a>
+              </th>
+              <th class="share-num"><p>23</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot">5</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/6b927d144e3e993122703f3d5e7ff3ad" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/6b927d144e3e993122703f3d5e7ff3ad_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  lsxxx2011                </a>
+              </th>
+              <th class="share-num"><p>22</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot">6</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/9dcc6cd4f0ae40d19bf2c5acf116df28" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/9dcc6cd4f0ae40d19bf2c5acf116df28_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  薛丽丹                </a>
+              </th>
+              <th class="share-num"><p>16</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot">7</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/frankchen" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/baf9e1cd12a81d5f759d302d74d3df62_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  江南消夏                </a>
+              </th>
+              <th class="share-num"><p>6</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot">8</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/f3dc015400574200e46297c4cdf23542" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/f3dc015400574200e46297c4cdf23542_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  依然很拉风                </a>
+              </th>
+              <th class="share-num"><p>5</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot">9</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/d760053613bacd0a826b7a661ece910b" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/d760053613bacd0a826b7a661ece910b_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  结实                </a>
+              </th>
+              <th class="share-num"><p>5</p></th>
+            </tr><tr>
+              <th class="share-num"><p><span class="hot">10</span></p></th>
+              <th>
+                <a href="http://shujuren.org/u/c30620c3e00ada9ea26771c51df77b04" class="share-member">
+                  <img src="./Python数据分析之pandas学习（一）-数据人网_files/c30620c3e00ada9ea26771c51df77b04_40.png" alt="" class="img-circle" data-bd-imgshare-binded="1">
+                  飞翔的独角兽                </a>
+              </th>
+              <th class="share-num"><p>4</p></th>
+            </tr>        </tbody></table>      </div>
+    </div>
+  </div>
+
+    
+  <div class="footer container" style="position: static;">
+    
+    <ul class="friend">
+      <li><a href="http://shujuren.org/category/11" rel="nofollow">机器学习</a></li>
+      <li><a href="http://www.wangluqing.com/" rel="nofollow">王路情博客</a></li>
+      <li><a href="http://www.afenxi.com/" rel="nofollow">数据分析网</a></li>
+      <li><a href="http://www.17bigdata.com/" rel="nofollow">一起大数据</a></li>
+      <li><a href="https://www.quora.com/" rel="nofollow">Quora问答</a></li>
+      <li><a href="http://www.apache.org/" rel="nofollow">Apache项目</a></li>
+      <li><a href="https://www.r-project.org/" rel="nofollow">R语言</a></li>
+      <li><a href="https://www.python.org/" rel="nofollow">Python语言</a></li>
+      <li><a href="http://www.zishu010.com/" rel="nofollow">紫数网</a></li>
+    </ul>
+    <br>
+    <br>
+    <ul>
+      <li><a href="http://shujuren.org/about">关于本站</a></li>
+      <li><a href="http://shujuren.org/team" class="no-border">团队介绍</a></li>
+      <li><a href="http://shujuren.org/contact">联系我们</a></li>
+      <li><a href="http://shujuren.org/joinus" class="no-border">加入我们</a></li>
+      <li><a href="http://shujuren.org/copyright">版权声明</a></li>
+      <li><a href="http://shujuren.org/sitemap" class="no-border">网站地图</a></li>
+      <li class="q hidden-xs">
+        <a href="javascript:;" class="no"><img src="./Python数据分析之pandas学习（一）-数据人网_files/qq-small.png" class="qq-s" data-bd-imgshare-binded="1"></a>
+        <div class="er">
+          <ul>
+            <li>R语言：484784338</li>
+            <li>Python语言：434146007</li>
+            <li>Hadoop：550303354</li>
+            <li>Spark：550530964</li>
+            <li>机器学习：201696892</li>
+            <li>数据分析：518398750</li>
+          </ul>
+        </div>
+      </li>
+      <li class="wechat hidden-xs">
+        <a href="javascript:;" class="no">
+          <img src="./Python数据分析之pandas学习（一）-数据人网_files/wechat.png" data-bd-imgshare-binded="1">
+        </a>
+        <div class="er">
+          <img src="./Python数据分析之pandas学习（一）-数据人网_files/gongzhonghao.jpg" data-bd-imgshare-binded="1">
+        </div>
+      </li>
+      
+
+      <div class="clear">
+      </div>
+    </ul>
+    <p class="text-center">粤ICP备15083071号&nbsp;&nbsp;(C)2015<a href="http://shujuren.org/">数据人网</a>版权所有
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257118786'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1257118786%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1257118786"><a href="http://www.cnzz.com/stat/website.php?web_id=1257118786" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./Python数据分析之pandas学习（一）-数据人网_files/pic1.gif" data-bd-imgshare-binded="1"></a></span><script src="./Python数据分析之pandas学习（一）-数据人网_files/z_stat.php" type="text/javascript"></script><script src="./Python数据分析之pandas学习（一）-数据人网_files/core.php" charset="utf-8" type="text/javascript"></script>
+    </p>
+  </div>
+    
+  <script type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/jquery.min.js.下载"></script>
+  
+  <script type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/bootstrap.min.js.下载"></script>
+
+  
+  <script type="text/javascript">
+    var headMessageUrl="http://shujuren.org/usercenter/getunreadcount"//导航栏头像消息通知接口
+
+    var logUrl="http://shujuren.org/login/userlogin";//登录验证表单地址
+
+    var checkUrl="http://shujuren.org/login/checkregform";//注册表单唯一性验证地址
+    var regUrl="http://shujuren.org/login/userregister";//注册验证表单地址
+    var captchaUrl="http://shujuren.org/api/requestsendemail";//注册邮件验证码发送请求地址
+
+    var loadMoreUrl="http://shujuren.org/index/getmorearticle";//点击加载更多的接口
+
+    var favoriteArticleUrl="http://shujuren.org/articlemanager/favoritearticle";//文章收藏接口地址
+    var cancelFavoriteUrl="http://shujuren.org/insideapi/cancelfavorite";//文章取消收藏接口
+
+    var praiseArticleUrl="http://shujuren.org/articlemanager/praisearticle"//文章点赞接口
+    var cancelArticlePraiseUrl="http://shujuren.org/insideapi/cancelarticlepraise";//文章取消赞接口
+    
+    var praiseCommentUrl="http://shujuren.org/articlemanager/praisecomment";//评论点赞接口
+    var cancelCommentPraiseUrl="http://shujuren.org/insideapi/cancelcommentpraise";//评论取消点赞接口
+
+    var followMeUrl="http://shujuren.org/userindex/followme";//关注接口
+    var cancelFollowUrl="http://shujuren.org/insideapi/cancelfollow";//取消关注接口
+
+    var markReadUrl="http://shujuren.org/insideapi/markread";//评论标记已读接口
+
+    var accountUrl="/api/requestsendemail.html";//邮件发送接口
+    var updateEmailUrl="http://shujuren.org/usercenter/updateemail";//更改绑定邮箱接口
+
+    var findUrl="http://shujuren.org/login/find";//找回密码接口
+
+    var verifyOldAccountUrl="http://shujuren.org/index/verifyoldaccount";
+
+    var reviseData="http://shujuren.org/usercenter/basic";//修改个人资料接口
+  </script>
+  
+  <script type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/log.js.下载"></script>  
+  <script type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/TopBar.js.下载"></script>
+  
+  <script type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/footer.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/editormd.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/marked.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/prettify.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/raphael.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/underscore.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/sequence-diagram.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/flowchart.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/jquery.flowchart.min.js.下载"></script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/article.js.下载"></script>
+  <script type="text/javascript">
+    
+    $("#article-waiting").remove();
+    $(function() {
+      var testEditormdView;
+      testEditormdView = editormd.markdownToHTML("test-editormd-view2", {
+        htmlDecode      : "style,script,iframe",  // you can filter tags decode
+        emoji           : true,
+        taskList        : true,
+        tex             : true,  // 默认不解析
+        flowChart       : true,  // 默认不解析
+        sequenceDiagram : true,  // 默认不解析
+      });
+    });
+  </script>
+  <script src="./Python数据分析之pandas学习（一）-数据人网_files/detail.js.下载"></script>
+  <script type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/attention.js.下载"></script>
+  <script type="text/javascript" src="./Python数据分析之pandas学习（一）-数据人网_files/footer.js.下载"></script>
+  
+
+<iframe frameborder="0" id="bdSharePopup_selectshare1498115512843bg" class="bdselect_share_bg" style="display:none;" src="./Python数据分析之pandas学习（一）-数据人网_files/saved_resource.html"></iframe><div id="bdSharePopup_selectshare1498115512843box" style="display: none;" share-type="selectshare" class="bdselect_share_box" data-bd-bind="1498115512842"><div class="selectshare-mod-triangle"><div class="triangle-border"></div><div class="triangle-inset"></div></div><div class="bdselect_share_head"><span>分享到</span><a href="http://www.baidu.com/s?wd=&amp;tn=SE_hldp08010_vurs2xrp" class="bdselect_share_dialog_search" target="_blank"><i class="bdselect_share_dialog_search_i"></i><span class="bdselect_share_dialog_search_span">百度一下</span></a><a class="bdselect_share_dialog_close"></a></div><div class="bdselect_share_content"><ul class="bdselect_share_list bdshare-button-style1-24"><div class="bdselect_share_partners"><a href="http://shujuren.org/article/207.html#" class="bds_weixin" data-cmd="weixin"></a><a href="http://shujuren.org/article/207.html#" class="bds_sqq" data-cmd="sqq"></a><a href="http://shujuren.org/article/207.html#" class="bds_qzone" data-cmd="qzone"></a><a href="http://shujuren.org/article/207.html#" class="bds_tsina" data-cmd="tsina"></a><a href="http://shujuren.org/article/207.html#" class="bds_tqq" data-cmd="tqq"></a></div><a href="http://shujuren.org/article/207.html#" class="bds_more" data-cmd="more"></a></ul></div></div><div id="bdimgshare_1498115512868" class="sr-bdimgshare sr-bdimgshare-list sr-bdimgshare-16 sr-bdimgshare-black" style="height:36px;line-height:26px;font-size:12px;width:autopx;display:none;" data-bd-bind="1498115512867"><div class="bdimgshare-bg"></div><div class="bdimgshare-content bdsharebuttonbox bdshare-button-style0-16"><label class="bdimgshare-lbl">分享到：</label><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="bds_weixin" data-cmd="weixin" hidefocus=""></a><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="bds_sqq" data-cmd="sqq" hidefocus=""></a><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="bds_qzone" data-cmd="qzone" hidefocus=""></a><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="bds_tsina" data-cmd="tsina" hidefocus=""></a><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="bds_tqq" data-cmd="tqq" hidefocus=""></a><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="bds_more" data-cmd="more" hidefocus=""></a></div></div><iframe frameborder="0" id="bdSharePopup_1498115527591bg" class="bdshare_popup_bg" style="height: 294px; width: 225px; top: 6709.77px; left: 788.465px; display: none;" src="./Python数据分析之pandas学习（一）-数据人网_files/saved_resource(1).html"></iframe><div class="bdshare_popup_box" id="bdSharePopup_1498115527591box" style="width: 226px; top: 6709.77px; left: 788.465px; display: none;"><div class="bdshare_popup_top">分享到</div><ul class="bdshare_popup_list"><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_mshare" data-cmd="mshare">一键分享</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_qzone" data-cmd="qzone">QQ空间</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_tsina" data-cmd="tsina">新浪微博</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_bdysc" data-cmd="bdysc">百度云收藏</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_weixin" data-cmd="weixin">微信</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_renren" data-cmd="renren">人人网</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_tqq" data-cmd="tqq">腾讯微博</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_bdxc" data-cmd="bdxc">百度相册</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_kaixin001" data-cmd="kaixin001">开心网</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_tqf" data-cmd="tqf">腾讯朋友</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_tieba" data-cmd="tieba">百度贴吧</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_douban" data-cmd="douban">豆瓣网</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_bdhome" data-cmd="bdhome">百度新首页</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_sqq" data-cmd="sqq">QQ好友</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_thx" data-cmd="thx">和讯微博</a></li><li><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_ibaidu" data-cmd="ibaidu">百度中心</a></li></ul><div class="bdshare_popup_bottom"><a href="http://shujuren.org/article/207.html#" onclick="return false;" class="popup_more" data-cmd="more" target="_blank;">更多...</a></div></div></body></html>

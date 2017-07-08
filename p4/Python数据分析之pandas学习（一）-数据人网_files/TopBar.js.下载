@@ -1,0 +1,37 @@
+window.onload=function(){
+	if($(".head-pic").length>0){
+		setTimeout("infoSearch()",2000)
+	}
+}
+
+
+function infoSearch(){
+	$.ajax({
+		type:'GET',
+		url:headMessageUrl,
+		dataType:'json',
+		success:function(data){
+			if(data.status){
+				infoTip(data.unread_count);
+			}else{
+
+			}
+		},
+		error: function(jqXHR){  
+			//jqXHR是XMLHttpRequest   
+			// alert("发生错误：" + jqXHR.status);
+		},
+	})
+	setTimeout("infoSearch()",60000)
+}
+
+function infoTip(num){
+	if(num>0){
+		$(".head-pic").addClass("shadow");
+		$("#index-center").html("个人中心" + "<span class='badge'>" + num + "</span>");
+	}
+	else{
+		$(".head-pic").removeClass("shadow");
+		$("#index-center").html("个人中心");
+	}
+}

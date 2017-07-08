@@ -1,0 +1,467 @@
+var logEmail=$('#logEmail');
+var logPassword=$('#logPassword');
+var logAuthcode=$('#logAuthcode');
+
+var regName=$('#regName');
+var regEmail=$('#regEmail');
+var regAuthcode=$('#regAuthcode');
+var regPassword1=$('#regPassword1');
+var regPassword2=$('#regPassword2');
+
+var logFormBox=new Array(logEmail,logPassword,logAuthcode);//登录表单
+var regFormBox=new Array(regName,regEmail,regAuthcode,regPassword1,regPassword2);//注册表单
+
+var formInput=[$('#oldName').val(),$('#oldPassword').val()];//欢迎回来第一步表单值
+
+
+$(function(){
+	removeTip();//清除提示
+	// 注册昵称唯一性检查
+	regName.blur(function(){
+		nameCheck();
+	});
+	// 注册邮箱唯一性检查
+	regEmail.blur(function(){
+		emailCheck();
+	});
+	//注册获取验证码
+	$('#btn-captcha').click(function(e){
+		captcha(e);
+	});
+	//登录时检查所有表单
+	$('#login-btn').click(function(e){
+		logCheck(e);
+	});
+	//注册时检查所有表单
+	$('#register-btn').click(function(){
+		regCheck();
+	});
+	//找回密码时检查所有表单
+	$('#find-first-form').submit(function(e){
+		findFirstCheck(e);
+	});
+	$('#find-second-form').submit(function(e){
+		findSecondCheck(e);
+	});
+	//找回密码获取验证码
+	$('#find-btn-captcha').click(function(e){
+		findCaptcha(e);
+	});
+
+	//欢迎回来
+	$('#back-submit').click(function(){
+		backCheck();
+	})
+})
+
+
+
+
+
+
+
+
+
+// ============================Function===================================
+// 登录表单为空验证
+function logCheck(e){
+	// 为空提示
+	var flag=new Array;
+	for(var i=0;i<logFormBox.length;i++){
+		flag[i]=true;
+		if(i==2){
+			if($('.logAuthcode-group').hasClass('disnone')){
+			}else{
+				if(logFormBox[i].val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+					$('.log-form-tip'+(i+1)).removeClass('disnone');
+					flag[i]=false;
+				}
+			}
+		}else{
+			if(logFormBox[i].val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+				$('.log-form-tip'+(i+1)).removeClass('disnone');
+				flag[i]=false;
+			}
+		}
+	}
+	if($.inArray(false,flag)==-1){
+		logSubmit(e);
+	}
+}
+// 注册表单为空验证
+function regCheck(){
+	// 为空提示
+	var flag=new Array();
+	for(var i=0;i<regFormBox.length;i++){
+		if(regFormBox[i].val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+			$('.reg-form-tip'+(i+1)).removeClass('disnone');
+			flag[i]=false;
+		}else{
+			flag[i]=true;
+		}
+	}
+	if($.inArray(false,flag)==-1){
+		regSubmit();
+	}
+}
+// 去掉提示
+function removeTip(){
+	// 去掉登录提示
+	for(var i=0;i<logFormBox.length;i++){
+		(function(i){
+			logFormBox[i].focus(function(){
+				$('.log-form-tip'+(i+1)).addClass('disnone');
+			})
+		})(i)
+	}
+
+
+	// 去掉注册提示
+	for(var i=0;i<regFormBox.length;i++){
+		(function(i){
+			regFormBox[i].focus(function(){
+				$('.reg-form-tip'+(i+1)).addClass('disnone');
+			})
+		})(i)
+	}
+
+	// 去掉找回密码提示
+	for(var i=0;i<2;i++){
+		(function(i){
+			$('#find-first-form input.form-control:eq('+i+')').focus(function(){
+				$('.find-form-tip'+(i+1)).addClass('disnone');
+			})
+		})(i)
+	}
+
+	// 去掉欢迎回来第一步提示
+	for(var i=0;i<formInput.length;i++){
+		(function(i){
+			$('#back-form input.form-control:eq('+i+')').focus(function(){
+				$('.back-form-tip'+(i+1)).addClass('disnone');
+			})
+		})(i)
+	}
+}
+// 注册昵称唯一性检查
+function nameCheck(){
+	if(regName.val()!=""){
+		$.ajax({
+			type:'POST',
+			url:checkUrl,
+			dataType:'json',
+			data:{
+				what:'name',
+				name:regName.val(),
+			},
+			success:function(data){
+				if(data.status){
+					// $('.reg-form-tip1').html(data.info);
+					// $('.reg-form-tip1').removeClass('disnone');
+				}else{
+					$('.reg-form-tip1').html(data.info);
+					$('.reg-form-tip1').removeClass('disnone');
+				}
+			},
+			error:function(jqXHR){
+				$('.reg-form-tip1').html("系统错误："+jqXHR.status);
+				$('.reg-form-tip1').removeClass('disnone');
+			}
+		})
+	}else{
+		$('.reg-form-tip1').html('*昵称不能为空');
+		$('.reg-form-tip1').removeClass('disnone');
+	}
+}
+// 注册邮箱唯一性检查
+function emailCheck(){
+	if(regEmail.val()!=""){
+		$.ajax({
+			type:'POST',
+			url:checkUrl,
+			dataType:'json',
+			data:{
+				what:'email',
+				email:regEmail.val(),
+			},
+			success:function(data){
+				if(data.status){
+					// $('.reg-form-tip2').html(data.info);
+					// $('.reg-form-tip2').removeClass('disnone');
+				}else{
+					$('.reg-form-tip2').html(data.info);
+					$('.reg-form-tip2').removeClass('disnone');
+				}
+			},
+			error:function(jqXHR){
+				$('.reg-form-tip2').html("系统错误："+jqXHR.status);
+				$('.reg-form-tip2').removeClass('disnone');
+			}
+		})
+	}else{
+		$('.reg-form-tip2').html('*邮箱不能为空');
+	}
+}
+// 登录时检查所有表单
+function logSubmit(e){
+	if($('#log-checkbox').is(':checked')){
+		var checkedMark="true";
+	}else{
+		var checkedMark="";
+	}
+	$.ajax({
+		type:'POST',
+		url:logUrl,
+		dataType:'json',
+		data:{//登录时候ajax上传全部表单内容
+			e:logEmail.val(),
+			p:logPassword.val(),
+			c:logAuthcode.val(),
+			rememberme:checkedMark,
+		},
+		success:function(data){
+			if(data.status){
+				location.reload();//成功即刷新
+			}else{
+				//任何不成功情况
+				authcodeForm(data.code);//判断是否显示
+				$('.log-tip').html(data.info);//左下角提示
+				$('.log-tip').removeClass('disnone');
+			}
+		},
+		error:function(jqXHR){//系统错误
+			$('.log-tip').html("系统错误："+jqXHR.status);
+			$('.log-tip').removeClass('disnone');
+		}
+	});
+}
+// 注册时检查所有表单
+function regSubmit(){
+	if(regPassword1.val()!=regPassword2.val()){
+		$('.reg-form-tip5').html("*两次输入密码不一致");
+		$('.reg-form-tip5').removeClass('disnone');
+	}
+	else{
+		$.ajax({
+			type:'POST',
+			url:regUrl,
+			dataType:'json',
+			data:{//注册时候ajax上传全部表单内容
+				n:regName.val(),
+				e:regEmail.val(),
+				p:regPassword1.val(),
+				c:regAuthcode.val(),
+			},
+			success:function(data){
+				if(data.status){
+					location.reload();//成功即刷新
+				}else{
+					//任何不成功情况
+					$('.reg-tip').html(data.info);//左下角提示
+					$('.reg-tip').removeClass('disnone');
+				}
+			},
+			error:function(jqXHR){//系统错误
+				$('.reg-tip').html("系统错误："+jqXHR.status);
+				$('.reg-tip').removeClass('disnone');
+			}
+		});
+	}
+}
+//注册获取验证码
+function captcha(e){
+	var email = $('#regEmail').val();
+	$.ajax({
+		type:'POST',
+		url:captchaUrl,
+		dataType:'json',
+		data:{
+			email:email,
+			context:"register",
+			email_token:$('input[name="regToken"]').attr('value'),
+		},
+		success:function(data){
+			if(data.status){
+				$('#btn-captcha').attr("disabled","disabled");
+				$('#btn-captcha').html("邮件发送中……");
+				// 发送邮件冷却
+				var second=60;
+				var interval=setInterval(function(){
+					$('#btn-captcha').html(second+"s后重新发送");
+					second--;
+					if(second==-1){
+						$('#btn-captcha').removeAttr("disabled");
+						$('#btn-captcha').html("获取验证码");
+						clearInterval(interval);
+					}
+				},1000);
+			}else{
+				$('.reg-form-tip-3').html(data.info);
+				$('.reg-form-tip-3').removeClass('disnone');
+				e.preventDefault();
+			}
+		},
+		error:function(jqXHR){
+			$('.reg-form-tip-3').html("系统错误："+jqXHR.status);
+			$('.reg-form-tip-3').removeClass('disnone');
+			e.preventDefault();
+		}
+	})
+}
+// 控制登录验证码的显示隐藏
+function authcodeForm(num){
+	if(num){
+		$('.logAuthcode-group').removeClass('disnone');
+		$('#authcodeBtn img').trigger("click");
+		$('#logAuthcode').val('');
+	}else{
+		$('.logAuthcode-group').addClass('disnone');
+	}
+}
+// ------------------找回密码-----------------
+// 注册表单为空验证
+function findFirstCheck(e){
+	// 为空提示
+	for(var i=0;i<2;i++){
+		if($('#find-first-form input.form-control:eq('+i+')').val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+			$('.find-form-tip'+(i+1)).removeClass('disnone');
+			e.preventDefault();
+		}
+	}
+}
+
+function findSecondCheck(e){
+	// 为空提示、密码一致性判断
+	for(var i=0;i<2;i++){
+		if($('#find-second-form input.form-control:eq('+i+')').val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+			$('.find-form-tip'+(i+4)).removeClass('disnone');
+			e.preventDefault();
+		}
+	}
+	if($('#password2').val()!=$('#password3').val()){
+		$('.find-second-tip').html('*密码输入不一致');
+		$('.find-second-tip').removeClass('disnone');
+		e.preventDefault();
+	}
+}
+
+// 找回密码时检查所有表单
+// function findFirstSubmit(e){
+// 	$.ajax({
+// 		type:'POST',
+// 		url:findUrl,
+// 		dataType:'json',
+// 		async:false,
+// 		data:{//找回密码时候ajax上传全部表单内容
+// 			e:$('#findEmail').val(),
+// 			c:$('#findAuthcode').val(),
+// 		},
+// 		success:function(data){
+// 			if(data.status){
+// 				//成功即跳转
+// 				// e.preventDefault();//终止提交
+// 			}else{
+// 				//任何不成功情况
+// 				$('.find-first-tip').html(data.info);//左下角提示
+// 				$('.find-first-tip').removeClass('disnone');
+// 				e.preventDefault();//终止提交
+// 			}
+// 		},
+// 		error:function(jqXHR){//系统错误
+// 			$('.find-first-tip').html("系统错误："+jqXHR.status);
+// 			$('.find-first-tip').removeClass('disnone');
+// 			e.preventDefault();//终止提交
+// 		}
+// 	});
+// }
+
+//找回密码获取验证码
+function findCaptcha(e){
+	var email = $('#findEmail').val();
+	var token=$('input[name="findToken"]').attr('value');
+	$.ajax({
+		type:'POST',
+		url:captchaUrl,
+		dataType:'json',
+		data:{
+			email:email,
+			context:"find",
+			email_token:token,
+		},
+		success:function(data){
+			if(data.status){
+				$('#find-btn-captcha').attr("disabled","disabled");
+				$('#find-btn-captcha').html("邮件发送中……");
+				// 发送邮件冷却
+				var second=60;
+				var interval=setInterval(function(){
+					$('#find-btn-captcha').html(second+"s后重新发送");
+					second--;
+					if(second==-1){
+						$('#find-btn-captcha').removeAttr("disabled");
+						$('#find-btn-captcha').html("获取验证码");
+						clearInterval(interval);
+					}
+				},1000);
+			}else{
+				$('.find-form-tip2').html(data.info);
+				$('.find-form-tip2').removeClass('disnone');
+				e.preventDefault();
+			}
+		},
+		error:function(jqXHR){
+			$('.find-form-tip2').html("系统错误："+jqXHR.status);
+			$('.find-form-tip2').removeClass('disnone');
+			e.preventDefault();
+		}
+	})
+}
+
+//欢迎回来第一步为空验证
+function backCheck(){
+	var formInput=[$('#oldName').val(),$('#oldPassword').val()];//欢迎回来第一步表单值
+	var flag=new Array();
+	$.each(formInput,function(i,val){
+		if(this.replace(/(^\s*)|(\s*$)/g, "").length==0){
+			$('.back-form-tip'+(i+1)).removeClass('disnone');
+			flag[i]=false;
+		}else{
+			flag[i]=true;
+		}
+	})
+	if(flag[0]&&flag[1]){
+		backSubmit();
+	}
+}
+//欢迎回来第一步ajax验证
+function backSubmit(){
+	$.ajax({
+		type:'POST',
+		url:verifyOldAccountUrl,
+		dataType:'json',
+		data:{//登录时候ajax上传全部表单内容
+			n:$('#oldName').val(),
+			p:$('#oldPassword').val(),
+		},
+		success:function(data){
+			if(data.status){
+				showRegister();
+			}else{
+				//任何不成功情况
+				$('.back-tip').html(data.info);
+				$('.back-tip').removeClass('disnone');
+			}
+		},
+		error:function(jqXHR){//系统错误
+			$('.back-tip').html("系统错误："+jqXHR.status);
+			$('.back-tip').removeClass('disnone');
+		}
+	});
+}
+//欢迎回来显示注册表单
+function showRegister(){
+	$('#back-form').addClass('disnone');
+	$('#reg-form').removeClass('disnone');
+
+	positionFooter();
+}

@@ -1,0 +1,80 @@
+$(function(){
+	//获取了页面所有id
+	var attentionIdNum=$('.attention').length;
+	var attentionId=new Array();
+	for(var i=0;i<attentionIdNum;i++){
+		attentionId[i]=$('.attention:eq('+i+')').attr('id');
+	}
+
+	attentionHover();
+	attentionAjax();
+
+	function attentionAjax(){
+		for(var i=0;i<$('.attention').length;i++){
+			(function(i){
+				$('.attention:eq('+i+')').click(function(){
+					if($(this).hasClass('attentionAlready')){
+						$.ajax({
+							type:'POST',
+							url:cancelFollowUrl,
+							dataType:'json',
+							data:{
+								id:attentionId[i],
+							},
+							success:function(data){
+								if(data.status){
+									$('.attention:eq('+i+')').unbind('mouseenter').unbind('mouseleave');
+									$('.attention:eq('+i+')').html('<span class="glyphicon glyphicon-plus"></span>&nbsp;关注');
+									$('.attention:eq('+i+')').removeClass('attentionAlready');
+									attentionHover();
+								}else{
+									alert(data.info);
+								}
+							},
+							error:function(jqXHR){
+								alert("系统错误："+jqXHR.status);
+							}
+						})
+					}else{
+						$.ajax({
+							type:'POST',
+							url:followMeUrl,
+							dataType:'json',
+							data:{
+								id:attentionId[i],
+							},
+							success:function(data){
+								if(data.status){
+									$('.attention:eq('+i+')').html('<span class="glyphicon glyphicon-plus"></span>&nbsp;已关注');
+									$('.attention:eq('+i+')').addClass('attentionAlready');
+									attentionHover();
+								}else{
+									alert(data.info);
+								}
+							},
+							error:function(jqXHR){
+								alert("系统错误："+jqXHR.status);
+							}
+						})
+					}
+				})
+			})(i)
+		}
+	}
+
+	function attentionHover(){
+		for(var i=0;i<$('.attentionAlready').length;i++){
+			(function(i){
+				$('.attentionAlready:eq('+i+')').bind({
+					mouseenter : function(){
+						$(this).html('<span class="glyphicon glyphicon-plus"></span>&nbsp;取消关注');
+					},
+					mouseleave : function(){
+						$(this).html('<span class="glyphicon glyphicon-plus"></span>&nbsp;已关注');
+					}
+				})
+			})(i)
+		}
+	}
+})
+

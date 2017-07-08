@@ -1,0 +1,47 @@
+var footer=$(".footer");
+$(function(){
+	//页脚微信，qq动画按钮悬浮动画
+	$(".wechat a").hover(function(){
+		$(".wechat .er").stop(true,false);
+		$(".wechat .er").css('display','block');
+		$(".wechat .er").animate({'opacity':'1','top':'-12.4rem'},400);
+	},function(){
+		$(".wechat .er").stop(true,false);
+		$(".wechat .er").animate({'opacity':'0','top':'-14.5rem'},400,function(){
+			$(".wechat .er").css('display','none');
+		});
+	});
+
+	$(".q a").hover(function(){
+		$(".q .er ul").stop(true,false);
+		$(".q .er ul").css('display','block');
+		$(".q .er ul").animate({'opacity':'1','top':'-14.5rem'},400);	
+	},function(){
+		$(".q .er ul").stop(true,false);
+		$(".q .er ul").animate({'opacity':'0','top':'-16rem'},400,function(){
+			$(".q .er ul").css('display','none');
+		});
+	})
+
+	// 解决页脚bug
+	
+	var resizeTimer=null;
+	$(window).bind('resize',function(){
+		if(resizeTimer)  clearTimeout(resizeTimer);
+		resizeTimer=setTimeout(positionFooter,10);
+	})
+	$(document).ready(positionFooter());
+});
+
+function positionFooter() {
+	footerHeight = footer.height();
+	footerTop = ($(window).height()-footerHeight)+"px";
+	//如果页面内容高度小于屏幕高度，div.footer将绝对定位到屏幕底部，否则div.footer保留它的正常静态定位
+	if ( ($(document.body).height()) < $(window).height()) {
+		footerTop = ($(window).height()-footerHeight-13)+"px";
+		footer.css({ "position": "absolute"}).stop().css({'top':footerTop});
+	}
+	else{
+		footer.css({"position":"static"})
+	}
+}

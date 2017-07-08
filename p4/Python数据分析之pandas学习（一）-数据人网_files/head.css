@@ -1,0 +1,71 @@
+/*数据人网站头部css文件*/
+.topbar{
+	padding-left: 2rem;
+}
+
+.logo{
+	padding: 0.3rem 0 0 1rem;
+}
+
+.logo img{
+	height: 5.3rem;
+	margin-right: 3rem;
+	margin-top: -1rem;
+}
+
+.navbar{
+	margin-bottom: 0;
+	padding: 1rem 0;
+}
+/*注册登录框内边距*/
+.modal-body{
+	padding-top: 3rem;
+}
+
+.ui-loader-default{ display:none}/*去掉添加jqueryMobile之后底部出现的Loading字样*/
+
+
+.disnone{
+	display: none;
+}
+
+.form-tip{
+	color: red;
+	line-height: 3.4rem;
+}
+
+#authcodeBtn{
+	padding: 0;
+}
+
+#authcodeBtn img{
+	width: 10rem;
+}
+
+.forget{
+	padding-top: 0.7rem;
+}
+
+/*头像*/
+.photo a.photo-a{
+	padding-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: 0.5rem;
+}
+
+@media (max-width: 767px){
+	.photo a.photo-a{
+		padding-left: 2rem;
+		margin-top: 0;
+	}
+}
+
+.shadow{
+	box-shadow: 0 1px 8px #f75288;
+}
+
+#index-center .badge{
+	margin-left: 10px;
+	background-color: #006599;
+}
