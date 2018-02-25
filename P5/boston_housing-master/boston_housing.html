@@ -13793,9 +13793,10 @@ oCjxiYhIoCjxiYhIoCjxiYhIoPw/m7XYuMvglhsAAAAASUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="&#38382;&#39064;-8---&#22238;&#31572;&#65306;">&#38382;&#39064; 8 - &#22238;&#31572;&#65306;<a class="anchor-link" href="#&#38382;&#39064;-8---&#22238;&#31572;&#65306;">&#182;</a></h3><p>K折交叉验证法是交叉验证法的一个眼神，将数据集分成k个子集，每个子集均做一次测试集，其余的作为训练集。k-CV交叉验证重复k次，每次选择一个子集作为测试集，并将k次的平均交叉验证识别率作为结果。</p>
+<h3 id="&#38382;&#39064;-8---&#22238;&#31572;&#65306;">&#38382;&#39064; 8 - &#22238;&#31572;&#65306;<a class="anchor-link" href="#&#38382;&#39064;-8---&#22238;&#31572;&#65306;">&#182;</a></h3><p>K折交叉验证法是交叉验证法的一个延伸，将全部数据分成训练集和验证集，再将训练集分成k个子集，每个子集均做一次测试集，其余的作为训练集。k-CV交叉验证重复k次，每次选择一个子集作为测试集，并将k次的平均交叉验证识别率作为结果。</p>
 <p>网格搜索法尝试各种可能的参数组合，然后进行交叉验证，找出使交叉验证精确度最高的参数组。</p>
 <p>cv_results 返回的是一个dict形式的数据组，其中主要告诉我们的是每个参数节点上的参数组合内容以及该参数组合下的拟合程度的评价。</p>
+<p>网格搜索时使用K折交叉验证可以避免过拟合，使结果更可信。</p>
 
 </div>
 </div>
@@ -13822,7 +13823,7 @@ oCjxiYhIoCjxiYhIoCjxiYhIoPw/m7XYuMvglhsAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO 4</span>
@@ -13842,7 +13843,7 @@ oCjxiYhIoCjxiYhIoCjxiYhIoPw/m7XYuMvglhsAAAAASUVORK5CYII=
 
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)}</span>
 
-    <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">r2_score</span><span class="p">)</span>
+    <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">performance_metric</span><span class="p">)</span>
 
     <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">regressor</span><span class="p">,</span><span class="n">params</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="n">scoring_fnc</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="n">cross_validator</span><span class="p">)</span>
 
